@@ -1,0 +1,157 @@
+/* 配色関係 */
+
+:root {
+    --kiyomizu-theme: 0;
+    --inari-theme: 120;
+    --reizan-theme: 60;
+    --main-color:180;
+    --sub-color: 30;
+    --main-font: 
+}
+
+.kiyomizu {
+    color: hsl(var(--kiyomizu-theme), 55%, 43%);
+}
+
+.inari {
+    color: hsl(var(--inari-theme), 55%, 43%);
+}
+
+.reizan {
+    color: hsl(var(--reizan-theme), 55%, 43%);
+}
+
+
+/* フォント・書式 */
+
+.zen {
+  font-family: "Zen Old Mincho", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: bolder;
+}
+
+.input-wrapper::after {
+    display: frex;
+    justify-content: right;
+    content: "年";
+    font-size: 7vw;
+}
+
+input {
+    width: 17vw;
+    font-size: 7vw;
+    text-align: right;
+}
+
+#wareki {
+    font-size: 8vw;
+}
+
+#eto {
+    font-size: 5vw;
+    text-align: center;
+}
+
+#taishou, #shouwa, #heisei {
+    font-size: 3vw;
+}
+
+.catch {
+    writing-mode: vertical-lr;
+    font-size: 5vw;
+    text-align: center;
+}
+
+.description {
+    text-align: center;
+    font-size: 2vw;
+    color: hsl(var(--sub-color), 55%, 43%);
+}
+
+.name {
+    font-size: 5vw;
+    text-align: center;
+}
+
+.schedule {
+    font-size: 3vw;
+}
+
+.info {
+    font-size: 2.3vw;
+}
+
+/* レイアウト関係 */
+
+.title {
+    display: grid;
+    justify-items: center;
+    align-items: baseline;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.sub_title {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 5vw;
+}
+
+.body {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.body {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.picture {
+    display: flex;
+}
+
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 3vw;
+}
+
+
+.calinfo {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1vw 1vw;
+    margin-top: 2vw;
+}
+
+/* 仮のボックス */
+
+img[src=""] {
+    display: block;
+    position: relative;
+    width: 55vw;
+    padding-bottom: 70%;
+    border: 2px solid #000;
+}
+
+.data {
+    width: 23vw;
+    height: 23vw;
+    border: 1px solid #000;
+}
