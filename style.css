@@ -10,15 +10,15 @@
 }
 
 .kiyomizu {
-    color: hsl(var(--kiyomizu-theme), 55%, 43%);
+    color: hsl(var(--kiyomizu-theme), 50%, 40%);
 }
 
 .inari {
-    color: hsl(var(--inari-theme), 55%, 43%);
+    color: hsl(var(--inari-theme), 55%, 40%);
 }
 
 .reizan {
-    color: hsl(var(--reizan-theme), 55%, 43%);
+    color: hsl(var(--reizan-theme), 55%, 35%);
 }
 
 
@@ -59,7 +59,15 @@ input {
 
 .catch {
     writing-mode: vertical-lr;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.catch input {
     font-size: 5vw;
+    height: 47vw;
+    width: 8vw;
     text-align: center;
 }
 
@@ -70,16 +78,16 @@ input {
 }
 
 .name {
-    font-size: 5vw;
+    font-size: 4vw;
     text-align: center;
 }
 
 .schedule {
-    font-size: 3vw;
+    font-size: 2.4vw;
 }
 
 .info {
-    font-size: 2.3vw;
+    font-size: 2vw;
 }
 
 /* レイアウト関係 */
@@ -109,11 +117,6 @@ input {
 }
 
 
-.body {
-    display: flex;
-    justify-content: space-evenly;
-}
-
 .picture {
     display: flex;
 }
@@ -123,7 +126,7 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    gap: 3vw;
+    align-items: center;
 }
 
 
@@ -140,18 +143,89 @@ input {
     margin-top: 2vw;
 }
 
-/* 仮のボックス */
+.date {
+    display: grid;
+}
 
+.month-name {
+    font-size: 4vw;
+    font-weight: bolder;
+    text-align: center;
+}
+.weekname {
+    font-size: 2vw;
+    font-weight: bolder;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+
+/* 仮のボックス */
+.body .picture .img {
+    width: 55vw;
+    height: 50vW;
+}
 img[src=""] {
     display: block;
     position: relative;
-    width: 55vw;
+    object-fit: contain;
     padding-bottom: 70%;
     border: 2px solid #000;
+}
+
+.qr {
+    width: 7vw;
 }
 
 .data {
     width: 23vw;
     height: 23vw;
-    border: 1px solid #000;
 }
+
+.calendarContainar {
+    font-size: 2.2vw;
+    font-weight: bolder;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+/* 御縁日 */
+
+.sun {
+    color: hsl(0, 50%, 30%);
+}
+
+.sat {
+    color: hsl(180, 50%, 30%);
+}
+
+.d8 {
+    background-color: hsl(150, 50%, 70%);
+    border-radius: 50%;
+}
+.d11 {
+    background-color: hsl(180, 50%, 70%);
+    border-radius: 50%;
+}
+
+.d17 {
+    background-color: hsl(0, 50%, 70%);
+    border-radius: 50%;
+}
+
+/* 霊山寺の縁日修正分 */
+.m1.d8 {
+    background-color: transparent;
+}
+
+.m2.d8 {
+    background-color: transparent;
+}
+
+.m2.d18 {
+    background-color: hsl(150, 50%, 80%);
+    border-radius: 50%;
+}
+

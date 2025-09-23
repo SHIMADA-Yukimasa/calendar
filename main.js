@@ -28,8 +28,13 @@ bc.oninput = () => {
     eto.innerHTML = `<ruby>${kan[thisYear % 10]}<rp>(</rp><rt>${kanKana[thisYear % 10]}</rt><rp>)</rp><ruby> <ruby>${shi[thisYear % 12]}<rp>(</rp><rt>${shiKana[thisYear % 12]}</rt><rp>)</rp><ruby>`;
 
     // TODO カレンダー作成
-    const m1 = document.getElementById('m1');
-    m1.appendChild(createCalendar(2015, 1));
+    for (let i = 1; i <= 12 ; i++) {
+        const m = document.getElementById(`m${i}`);
+        while(m.firstChild) {
+            m.removeChild(m.firstChild);
+        }
+    m.appendChild(createCalendar(parseInt(bc.value), i));
+    }
 };
 
 
