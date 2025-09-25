@@ -1,6 +1,17 @@
 const weekName = ['sun', 'mon', 'tue', 'wed', "thu", "fri", "sat"];
 const japaneseWeekName = '日月火水木金土'.split('');
-export function createCalendar (year, month)  {
+
+
+// メイン
+export function createCalendar (year, month, scheduleData)  {
+
+// 今年のスケジュールだけ取り出す
+const scheduleArray = scheduleData.map(v => {
+    const data = v.split(",");
+    if (data[2].split("-")[0] != year) return;
+    return [data[3].split('-')[1], ...data];
+});
+
     // 全体のdiv要素
     const result = document.createElement('div') ;
     result.classList.add("calendar", `Y${year}`, `M${month}`)
@@ -30,21 +41,60 @@ export function createCalendar (year, month)  {
     for (let i = 0; i < calendarLength; i++) {
         const someDate = new Date(firstDay);
         const result = new Date(someDate.setDate(someDate.getDate() + i));
-        result.weekNumber = Math.floor(i / 7);
+        // その月のn段目
+        result.weekRow = Math.floor(i / 7);
+        // 第〇週 を作る
+        result.weekNumber = Math.floor((i - new Date(year, month - 1 , 1).getDay() + 7) / 7);
         dateArray[i] = result;
     }
 
-    // TODO カレンダー作成
+    // カレンダー作成
     const calendar = document.createElement('div');
     calendar.classList.add('calendarContainar');
     for (let i = 0; i < dateArray.length; i++){
         const div = document.createElement('div');
+        div.classList.add('day-class');
+        const day = document.createElement('div');
+        day.classList.add('day');
         if (dateArray[i].getMonth() == month - 1) {
-            div.innerText = dateArray[i].getDate();
+            day.innerText = dateArray[i].getDate();
         } else {
-            div.innerText = " ";
+            day.innerHTML = "&nbsp;";
         }
-        div.classList.add('y' + year, 'm' + month, 'd' + dateArray[i].getDate(),weekName[dateArray[i].getDay()],'w' + dateArray[i].weekNumber )
+        day.classList.add('y' + year, 'm' + month, 'd' + dateArray[i].getDate(),weekName[dateArray[i].getDay()],'w' + dateArray[i].weekNumber )
+        div.appendChild(day);
+        // 予定を表示するスペース
+        const sche = document.createElement('div');
+        const someDate = new Date(firstDay);
+        const result = new Date(someDate.setDate(someDate.getDate() + i));
+        scheduleArray.map(v => {
+            const start = new Date(v[3].split('-')[0], parseInt(v[3].split('-')[1],10) - 1, v[3].split('-')[2]);
+            const   end = new Date(v[4].split('-')[0], parseInt(v[4].split('-')[1],10) - 1, v[4].split('-')[2]);
+            const color = v[1] === "清水寺" ? 0
+                        : v[1] === "霊山寺" ? 60
+                        : v[1] === "蓮乗院" ? 120
+                        : 180;
+
+            if (start.getTime() <= result.getTime() && result.getTime() <= end.getTime()){
+                sche.classList.add('yotei');
+                sche.style.backgroundColor = `hsla(${color}, 50%, 50%, 0.3`;
+                sche.style.color = `hsl(${color}, 50%, 20%)`;
+
+            if (result.toDateString() === start.toDateString()) {
+                sche.innerHTML = v[2];
+                sche.classList.add('start');
+            }
+
+            if (result.toDateString() === end.toDateString()){
+                // 終了
+                sche.classList.add('end');
+
+            }
+
+            }
+        });
+        div.appendChild(sche);
+
         calendar.appendChild(div);
     }
     result.appendChild(calendar);

@@ -1,4 +1,5 @@
 const bc = document.getElementById('bc');
+bc.value = parseInt(new Date().getFullYear(), 10) + 1;
 const wareki = document.getElementById('wareki');
 const eto = document.getElementById('eto');
 
@@ -8,9 +9,16 @@ const heisei = document.getElementById('heisei');
 
 import { createCalendar } from './calendar.js'
 
-bc.value = parseInt(new Date().getFullYear(), 10) + 1;
+    let scheduleData = [];
+    await fetch("yotei.csv")
+    .then(res => res.text())
+    .then(obj => scheduleData = obj.split('\r\n'));
+
+// 予定を読み込む
+
 
 bc.oninput = () => {
+
     const thisYear = parseInt(bc.value, 10);
     // 令和の計算
     wareki.innerText = `令和${thisYear - 2018}年`; 
@@ -33,7 +41,7 @@ bc.oninput = () => {
         while(m.firstChild) {
             m.removeChild(m.firstChild);
         }
-    m.appendChild(createCalendar(parseInt(bc.value), i));
+    m.appendChild(createCalendar(thisYear, i, scheduleData));
     }
 };
 
