@@ -162,10 +162,19 @@ input {
 
 
 /* 仮のボックス */
-.body .picture .img {
-    width: 55vw;
-    height: 50vW;
+
+.body .picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+
+.body .picture .img {
+    width:95%;
+    height: 95%;
+}
+
 img[src=""] {
     display: block;
     position: relative;
@@ -194,24 +203,24 @@ img[src=""] {
 /* 御縁日 */
 
 .sun {
-    color: hsl(0, 50%, 30%);
+    color: hsl(0, 50%, 40%);
 }
 
 .sat {
-    color: hsl(180, 50%, 30%);
+    color: hsl(180, 50%, 40%);
 }
 
 .d8 {
-    background-color: hsl(150, 50%, 70%);
+    background-color: hsl(150, 50%, 80%);
     border-radius: 50%;
 }
 .d11 {
-    background-color: hsl(180, 50%, 70%);
+    background-color: hsl(180, 50%, 80%);
     border-radius: 50%;
 }
 
 .d17 {
-    background-color: hsl(0, 50%, 70%);
+    background-color: hsl(0, 50%, 80%);
     border-radius: 50%;
 }
 

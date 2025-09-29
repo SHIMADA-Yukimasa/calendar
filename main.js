@@ -5,8 +5,8 @@ const eto = document.getElementById('eto');
 const taishou = document.getElementById('taishou');
 const shouwa = document.getElementById('shouwa');
 const heisei = document.getElementById('heisei');
-
 import { createCalendar } from './calendar.js'
+import { nationalHoliday } from './nationalHoliday.js'
 
 bc.value = parseInt(new Date().getFullYear(), 10) + 1;
 
@@ -35,6 +35,9 @@ bc.oninput = () => {
         }
     m.appendChild(createCalendar(parseInt(bc.value), i));
     }
+
+    // 祝日の処理
+    nationalHoliday(thisYear);
 };
 
 
