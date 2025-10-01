@@ -58,6 +58,9 @@ input {
 }
 
 .catch {
+    font-family: "Yuji Syuku", serif;
+    font-weight: 400;
+    font-style: normal;
     writing-mode: vertical-lr;
     display: flex;
     justify-content: space-evenly;
@@ -150,8 +153,10 @@ input {
 .month-name {
     font-size: 4vw;
     font-weight: bolder;
-    text-align: center;
+    text-align: left;
+    padding-right: 0.8vw;
 }
+
 .weekname {
     font-size: 2vw;
     font-weight: bolder;
@@ -160,7 +165,23 @@ input {
     text-align: center;
 }
 
+.month-head {
+    display: flex;
+    align-items: center;
+}
 
+.month-data {
+    font-size: 0.8vw;
+    font-weight: bold;
+    line-height: 1vw;
+    column-count: 2;
+    column-gap: 1vw;
+}
+
+.foot-copy {
+    text-align: center;
+    font-size: 4vw;
+}
 /* 仮のボックス */
 
 .body .picture {
@@ -170,18 +191,13 @@ input {
 }
 
 
-.body .picture .img {
-    width:95%;
-    height: 95%;
+.body .picture .img img {
+    width:240mm;
+    height: 180mm;
+    object-fit: cover;
 }
 
-img[src=""] {
-    display: block;
-    position: relative;
-    object-fit: contain;
-    padding-bottom: 70%;
-    border: 2px solid #000;
-}
+
 
 .qr {
     width: 7vw;

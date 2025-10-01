@@ -10,7 +10,7 @@ import { nationalHoliday } from './nationalHoliday.js'
 
 bc.value = parseInt(new Date().getFullYear(), 10) + 1;
 
-bc.oninput = () => {
+bc.oninput = async () => {
     const thisYear = parseInt(bc.value, 10);
     // 令和の計算
     wareki.innerText = `令和${thisYear - 2018}年`; 
@@ -33,7 +33,7 @@ bc.oninput = () => {
         while(m.firstChild) {
             m.removeChild(m.firstChild);
         }
-    m.appendChild(createCalendar(parseInt(bc.value), i));
+    m.appendChild(await createCalendar(parseInt(bc.value), i));
     }
 
     // 祝日の処理

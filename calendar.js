@@ -1,16 +1,25 @@
 const weekName = ['sun', 'mon', 'tue', 'wed', "thu", "fri", "sat"];
 const japaneseWeekName = '日月火水木金土'.split('');
+import { eventAdd } from './yotei.js';
 
-export function createCalendar (year, month)  {
+export async function createCalendar (year, month)  {
     // 全体のdiv要素
     const result = document.createElement('div') ;
     result.classList.add("calendar", `Y${year}`, `M${month}`)
 
     // 月名のヘッダー部分
+    const monthHead = document.createElement('div');
+    const monthData = document.createElement('div');
     const monthName = document.createElement("div");
+    monthHead.classList.add('month-head');
+    monthData.classList.add('month-data');
     monthName.classList.add("month-name");
     monthName.innerText = month;
-    result.appendChild(monthName);
+    const eventData = await eventAdd(year, month);
+    monthData.innerHTML = eventData;
+    monthHead.appendChild(monthName);
+    monthHead.appendChild(monthData);
+    result.appendChild(monthHead);
 
     // 曜日部分
     const weekname = document.createElement('div');
@@ -53,29 +62,6 @@ export function createCalendar (year, month)  {
         calendar.appendChild(div);
     }
     result.appendChild(calendar);
+    eventAdd(year,month );
     return result;
-}
-
-async function isEvent(year, month) {
-
-async function csvToMap() {
-    try {
-        const Response = await fetch('yotei.csv');
-        if (!Response.ok) {
-            throw new Error(`csvファイルが読めませんでした: ${Response.status} ${Response.statusText}`);
-        }
-            const text = await Response.text();
-            const map = new Map();
-            const arr = text.split(/\r\n|\n/);
-            arr.forEach((v,i) => {
-                const value = v.split(',');
-                map.set(value[0], value[1]);
-            });
-            return map;
-    } catch(error) {
-        console.error(`csvファイルが読めませんでした: ${error}`);
-    }
-};
-
-const yotei = await csvToMap();
 }
