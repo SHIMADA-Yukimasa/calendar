@@ -21,15 +21,22 @@ async function csvToArr() {
 
 const  tmp = await csvToArr();
 const yotei = tmp.filter(v => Boolean(v));
-const yoteiArr = [];
+const yoteiDiv = document.createElement('div');
+let yoteiData = [];
+let yoteiID = 1;
+yoteiDiv.classList.add('yotei-containar');
 yotei.forEach((v, i) => {
+    const value = document.createElement('div');
     const data = v.split(',');
-    const date = data[2].split('/');
-    if (year === parseInt(date[0]) && month === parseInt(date[1])) {
-        yoteiArr.push(data[1]);
+    const start = data[2].split('/');
+    const end = data[3].split('/');
+    if ((year === parseInt(start[0]) && month === parseInt(start[1]))
+      || year === parseInt(end[0]) && month === parseInt(end[1])) {
+        value.classList.add(`yotei-${yoteiID++}`);
+        yoteiData.push(data);
+        value.innerText = data[1];
+        yoteiDiv.appendChild(value);
     }
 });
-const result = yoteiArr.join('<br>');
-console.log(result)
-return result;
+return [yoteiDiv, yoteiData];
 }
