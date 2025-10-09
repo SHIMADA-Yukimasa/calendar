@@ -90,6 +90,10 @@ input {
     font-size: 2vw;
 }
 
+.footer {
+    text-align: center;
+    font-size: 5vw;
+}
 /* レイアウト関係 */
 
 .title {
@@ -147,11 +151,29 @@ input {
     display: grid;
 }
 
+
+.month-name-containar {
+    font-weight: bold;
+    height: 4vw;
+    display: flex;
+    align-items: center;
+}
+
 .month-name {
     font-size: 4vw;
     font-weight: bolder;
-    text-align: center;
+    padding: 1vw;
 }
+
+.yotei-containar {
+    height: 100%;
+    font-size: 0.5em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0px 1vw;
+}
+
 .weekname {
     font-size: 2vw;
     font-weight: bolder;
