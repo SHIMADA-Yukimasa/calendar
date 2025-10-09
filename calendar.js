@@ -2,6 +2,25 @@ const weekName = ['sun', 'mon', 'tue', 'wed', "thu", "fri", "sat"];
 const japaneseWeekName = '日月火水木金土'.split('');
 import { eventAdd } from './yotei.js';
 
+
+// Dateオブジェクトを受け取っての日数の差を返すポリフィル
+    Date.prototype.diffDays = function (otherDate) {
+        // 入力がDateオブジェクトか確認
+        if (!(otherDate instanceof Date) || isNaN(otherDate)) {
+            throw new TypeError('引数は有効なDateオブジェクトである必要があります');
+        }
+
+        // 自身が有効な値を持つか確認
+        if (isNaN(this)) {
+            throw new TypeError('自身は有効な値をもつ必要があります');
+        }
+
+        const diffms = Math.abs(this - otherDate);
+        const result = Math.floor(diffms / (1000 * 60 * 60 * 24));
+
+        return result;
+    }
+
 export async function createCalendar (year, month)  {
     // 全体のdiv要素
     const result = document.createElement('div') ;
@@ -82,12 +101,24 @@ function yoteiLine(index, r, _start, _end) {
         const row = Math.floor((new Date(__start[0], __start[1] - 1, __start[2]) - firstDay) / (1000 * 60 * 60 * 24 * 7)) + 1;
         const column = new Date(__start[0], __start[1] - 1, __start[2]).getDay() + 1;
         console.log(new Date(__start[0], __start[1] -1 , __start[2]), column)
-    style.value = `height: 5px; position: relative; top: ${35 + 5 * r}px;`
+    style.value = `height: 5px; position: relative; top: ${38 + 5 * r}px;`
                 + `grid-row: ${row}; grid-column: ${column};`;  
         result.setAttributeNode(style);
         return [result];
     } else {
         // TODO 期間のある予定
-        return [document.createElement('div')];
+        const start = new Date(__start[0], __start[1] - 1, __start[2]);
+        const end = new Date(__end[0], __end[1] - 1, __end[2]);
+        let row = Math.floor((((6 + start.getDate() - start.getDay()) % 7) + start.getDate()) / 7) + 1;
+        let column = start.getDay() + 1;
+        console.log(start.toLocaleString('ja-JP'), row, column, start.diffDays(end))
+            const div = document.createElement("div");
+            div.classList.add(`line-${index}`);
+            const style = document.createAttribute('style');
+            style.value = `height: 5px; position: relative; top: ${38 + 5 * r}px;`
+                        + `grid-row: ${row}; grid-column: ${column} / ${column + start.diffDays(end) + 1};`;  
+            div.setAttributeNode(style);
+
+        return [div];
     }
 };
