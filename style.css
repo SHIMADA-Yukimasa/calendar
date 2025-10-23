@@ -5,7 +5,7 @@
     --inari-theme: 120;
     --reizan-theme: 60;
     --main-color:180;
-    --sub-color: 30;
+    --sub-color: 230;
     --main-font: 
 }
 
@@ -29,6 +29,26 @@
   font-weight: 400;
   font-style: normal;
   font-weight: bolder;
+}
+
+.shippori {
+  font-family: "Shippori Mincho", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noto {
+  font-family: "Noto Serif JP", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+
+  font-style: normal;
+}
+
+.syuku {
+  font-family: "Yuji Syuku", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .input-wrapper::after {
@@ -71,10 +91,22 @@ input {
     text-align: center;
 }
 
+.en {
+    display: inline-block;
+    text-align: center;
+    margin: auto;
+    vertical-align: baseline;
+    height: 3.4vw;
+    width: 3.4vw;
+    font-size: 2.4vw;
+    font-weight: bolder;
+}
+
 .description {
     text-align: center;
     font-size: 2vw;
-    color: hsl(var(--sub-color), 55%, 43%);
+    font-weight: bold;
+    color: hsl(var(--sub-color), 50%, 30%);
 }
 
 .name {
@@ -93,6 +125,7 @@ input {
 .footer {
     text-align: center;
     font-size: 5vw;
+    color: hsl(var(--sub-color), 50%, 30%);
 }
 /* レイアウト関係 */
 
@@ -122,7 +155,15 @@ input {
 
 
 .picture {
+    width: 60vw;
+    height: 48vw;
     display: flex;
+}
+
+.hasui {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 
@@ -225,24 +266,24 @@ img[src=""] {
 /* 御縁日 */
 
 .sun {
-    color: hsl(0, 50%, 40%);
+    color: oklch(40% 50% 45);
 }
 
 .sat {
-    color: hsl(180, 50%, 40%);
+    color: oklch(40% 50% 225);
 }
 
 .d8 {
-    background-color: hsl(150, 50%, 80%);
+    background-color: oklch(80% 50% 180);
     border-radius: 50%;
 }
 .d11 {
-    background-color: hsl(180, 50%, 80%);
+    background-color: oklch(80% 50% 225);
     border-radius: 50%;
 }
 
 .d17 {
-    background-color: hsl(0, 50%, 80%);
+    background-color: oklch(80% 50% 0);
     border-radius: 50%;
 }
 
@@ -256,7 +297,7 @@ img[src=""] {
 }
 
 .m2.d18 {
-    background-color: hsl(150, 50%, 80%);
+    background-color: oklch(80% 50% 195);
     border-radius: 50%;
 }
 
