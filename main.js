@@ -8,6 +8,26 @@ const heisei = document.getElementById('heisei');
 import { createCalendar } from './calendar.js'
 import { nationalHoliday } from './nationalHoliday.js'
 
+// Dateオブジェクトを受け取っての日数の差を返すポリフィル
+if(Date.prototype.diffDays) {
+    Date.prototype.diffDays = function (otherDate) {
+        // 入力がDateオブジェクトか確認
+        if (!(otherDate instanceof Date) || isNaN(otherDate)) {
+            throw new TypeError('引数は有効なDateオブジェクトである必要があります');
+        }
+
+        // 自身が有効な値を持つか確認
+        if (isNaN(this)) {
+            throw new TypeError('自身は有効な値をもつ必要があります');
+        }
+
+        const diffms = Math.abs(this - otherDate);
+        const result = Math.floor(diffms / (1000 * 60 * 60 * 24));
+
+        return result;
+    }
+}
+
 bc.value = parseInt(new Date().getFullYear(), 10) + 1;
 
 bc.oninput = async () => {

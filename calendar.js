@@ -2,6 +2,25 @@ const weekName = ['sun', 'mon', 'tue', 'wed', "thu", "fri", "sat"];
 const japaneseWeekName = '日月火水木金土'.split('');
 import { eventAdd } from './yotei.js';
 
+
+// Dateオブジェクトを受け取っての日数の差を返すポリフィル
+    Date.prototype.diffDays = function (otherDate) {
+        // 入力がDateオブジェクトか確認
+        if (!(otherDate instanceof Date) || isNaN(otherDate)) {
+            throw new TypeError('引数は有効なDateオブジェクトである必要があります');
+        }
+
+        // 自身が有効な値を持つか確認
+        if (isNaN(this)) {
+            throw new TypeError('自身は有効な値をもつ必要があります');
+        }
+
+        const diffms = Math.abs(this - otherDate);
+        const result = Math.floor(diffms / (1000 * 60 * 60 * 24));
+
+        return result;
+    }
+
 export async function createCalendar (year, month)  {
     // 全体のdiv要素
     const result = document.createElement('div') ;
@@ -15,8 +34,8 @@ export async function createCalendar (year, month)  {
     monthData.classList.add('month-data');
     monthName.classList.add("month-name");
     monthName.innerText = month;
-    const eventData = await eventAdd(year, month);
-    monthData.innerHTML = eventData;
+    const [eventData, yoteiData] = await eventAdd(year, month);
+    monthData.appendChild(eventData);
     monthHead.appendChild(monthName);
     monthHead.appendChild(monthData);
     result.appendChild(monthHead);
@@ -32,7 +51,7 @@ export async function createCalendar (year, month)  {
     }
     result.appendChild(weekname);
 
-    // TODO Date オブジェクトの配列を作る
+    // Date オブジェクトの配列を作る
     const firstDay = new Date(new Date(year, month - 1, 1).setDate(-new Date(year, month - 1, 1).getDay() + 1));
     const calendarLength =  Math.ceil((((new Date(year, month, 0) - new Date(year, month - 1, 1)) / 86400000) + new Date(year, month - 1, 1).getDay()) / 7) * 7;
     const dateArray = new Array(calendarLength);
@@ -44,7 +63,7 @@ export async function createCalendar (year, month)  {
         dateArray[i] = result;
     }
 
-    // TODO カレンダー作成
+    // カレンダー作成
     const calendar = document.createElement('div');
     calendar.classList.add('calendarContainar');
     for (let i = 0; i < dateArray.length; i++){
@@ -55,13 +74,51 @@ export async function createCalendar (year, month)  {
             div.innerText = " ";
         }
         const style = document.createAttribute('style');
-        style.value = `grid-row: ${Math.floor((i + 7) / 7)};`
+        style.value += `grid-row: ${Math.floor((i + 7) / 7)};`
                     + `grid-column: ${dateArray[i].getDay() + 1};`
         div.setAttributeNode(style);
         div.classList.add('y' + year, 'm' + month, 'd' + dateArray[i].getDate(),weekName[dateArray[i].getDay()],'w' + dateArray[i].weekNumber )
         calendar.appendChild(div);
     }
     result.appendChild(calendar);
-    eventAdd(year,month );
+    yoteiData.forEach((v, i) => {
+        yoteiLine(i + 1, v[4], v[2], v[3]).forEach(v =>{
+            calendar.appendChild(v);
+        });
+    });
     return result;
 }
+
+function yoteiLine(index, r, _start, _end) {
+    const __start = _start.split('/');
+    const __end = _end.split('/');
+    console.log(new Date(__start[0], __start[1] - 1, __start[2]))
+    const firstDay = new Date(__start[0], __start[1] - 1, 1 - new Date(__start[0], __start[1] - 1,1).getDay());
+    if (_start === _end) {
+        const result = document.createElement('div');
+        result.classList.add(`line-${index}`)
+        const style = document.createAttribute('style');
+        const row = Math.floor((new Date(__start[0], __start[1] - 1, __start[2]) - firstDay) / (1000 * 60 * 60 * 24 * 7)) + 1;
+        const column = new Date(__start[0], __start[1] - 1, __start[2]).getDay() + 1;
+        console.log(new Date(__start[0], __start[1] -1 , __start[2]), column)
+    style.value = `height: 5px; position: relative; top: ${38 + 5 * r}px;`
+                + `grid-row: ${row}; grid-column: ${column};`;  
+        result.setAttributeNode(style);
+        return [result];
+    } else {
+        // TODO 期間のある予定
+        const start = new Date(__start[0], __start[1] - 1, __start[2]);
+        const end = new Date(__end[0], __end[1] - 1, __end[2]);
+        let row = Math.floor((((6 + start.getDate() - start.getDay()) % 7) + start.getDate()) / 7) + 1;
+        let column = start.getDay() + 1;
+        console.log(start.toLocaleString('ja-JP'), row, column, start.diffDays(end))
+            const div = document.createElement("div");
+            div.classList.add(`line-${index}`);
+            const style = document.createAttribute('style');
+            style.value = `height: 5px; position: relative; top: ${38 + 5 * r}px;`
+                        + `grid-row: ${row}; grid-column: ${column} / ${column + start.diffDays(end) + 1};`;  
+            div.setAttributeNode(style);
+
+        return [div];
+    }
+};
