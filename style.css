@@ -297,7 +297,12 @@ img[src=""] {
 }
 
 .m2.d18 {
-    background-color: oklch(80% 50% 195);
+    background-color: oklch(80% 50% 180);
     border-radius: 50%;
 }
 
+/* パッチ */
+
+.m4.d29 {
+    color: oklch(40% 50% 45);;
+}

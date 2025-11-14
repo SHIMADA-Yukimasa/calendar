@@ -21,12 +21,13 @@ async function csvToMap() {
 };
 
 const syukujitsu = await csvToMap();
+console.log(syukujitsu)
 for (let i = 1; i <= 366; i++) {
     const date = new Date(year, 0, i);
     const dateText = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     if (syukujitsu.get(dateText)) {
         const day = document.querySelector(`.m${date.getMonth() + 1}.d${date.getDate()}`);
-        day.setAttribute('style',"color: hsl(0, 50%, 40%);");
+        day.setAttribute('style',"color: oklch(40% 50% 45);");
     }
 }
 }

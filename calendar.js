@@ -13,7 +13,7 @@ const yotei = [
     [3, "８日　霊山寺 大護摩火渡り祭"],
     [3, "20日　春の彼岸会"],
     [4, "８日　花まつり"],
-    [4, "11日～17日　春お経会式"],
+    [4, "11日～17日　お経会式"],
     [4, "　"],
     [4, "29日～　宝物館公開期間"],
     [4, "29日～　還誕祭"],
@@ -22,14 +22,14 @@ const yotei = [
     [5, "～6日　還誕祭"],
     [5, "～6日　ちびっこ厄ばらい祭"],
     [6, "14日　のぼり旗奉納者合同祈願祭"],
+    [7, "８日　霊山寺 十二天供養祭"],
     [7, "17日　御本尊開扉法要（大般若600巻転読）"],
     [7, "22日～24日　全山閉山日"],
-    [8, "８日　霊山寺 十二天供養祭"],
     [8, "15日　施餓鬼法要"],
     [8, "17日　第28回 清水寺萬燈会"],
     [9, "23日　秋の彼岸会"],
     [10, "18日　光明真言会（諷誦）"],
-    [11, "11日　清水稲荷大祭（もっこ祭り）"],
+    [11, "11日　清水稲荷社大祭（もっこ祭り）"],
     [12, "17日　大梵焼祭"]
 ];
 
@@ -71,8 +71,9 @@ export function createCalendar (year, month)  {
 
     // TODO Date オブジェクトの配列を作る
     const firstDay = new Date(new Date(year, month - 1, 1).setDate(-new Date(year, month - 1, 1).getDay() + 1));
-    const calendarLength =  Math.ceil((((new Date(year, month, 0) - new Date(year, month - 1, 1)) / 86400000) + new Date(year, month - 1, 1).getDay()) / 7) * 7;
+    let calendarLength =  Math.ceil((((new Date(year, month, 0) - new Date(year, month - 1, 1)) / 86400000) + new Date(year, month - 1, 1).getDay()) / 7) * 7;
     const dateArray = new Array(calendarLength);
+    if (month === 5) calendarLength++;
     // 最初の日の曜日を引いた日から配列いっぱいまで
     for (let i = 0; i < calendarLength; i++) {
         const someDate = new Date(firstDay);
